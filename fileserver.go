@@ -1,4 +1,4 @@
-package main
+package fileserver
 
 import (
 	"fmt"
@@ -83,7 +83,7 @@ func DeleteHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "File deleted successfully: %s\n", fileName)
 }
 
-func main() {
+func StartServer(addr string) {
 	// Ensure the uploads directory exists
 	os.MkdirAll("uploads", os.ModePerm)
 
