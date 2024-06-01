@@ -1,7 +1,3 @@
-Sure! I'll include instructions on how to run the server using `go run main.go` in the README. Here is the updated README:
-
----
-
 # Go File Server
 
 This project is a simple file server implemented in Go that allows users to upload, download, list, and delete files. The server saves uploaded files in an `uploads` directory and provides endpoints to manage the files.
@@ -17,10 +13,15 @@ This project is a simple file server implemented in Go that allows users to uplo
 
    ```bash
    git clone https://github.com/Niall1985/FileServerGolang.git
-   cd <your-repository-directory>
    ```
 
-2. **Create the `uploads` Directory**
+2. **Navigate to the directory for your repository**
+
+    ```bash
+    cd <your-repository-directory>
+    ```
+
+3. **Create the `uploads` Directory**
 
    ```bash
    mkdir uploads
