@@ -7,8 +7,6 @@ This project is a simple file server implemented in Go that allows users to uplo
 - Go (1.16 or higher)
 - PowerShell (for testing and interacting with the server)
 
-You're absolutely right; my apologies for the oversight. Here's the corrected installation section:
-
 ## Installation
 
 1. **Create a New Go Module**
@@ -33,13 +31,13 @@ You're absolutely right; my apologies for the oversight. Here's the corrected in
 
 3. **Create the `main.go` File**
 
-   Create a `main.go` file in your project directory and import the `fileserver` package to use it. Here's an example `main.go` file:
+   Create a `main.go` file in your project directory and import the `FileServerGolang` package to use it. Here's an example `main.go` file:
 
    ```go
    package main
 
    import (
-       "github.com/yourusername/fileserver"
+       "github.com/Niall1985/FileServerGolang"
    )
 
    func main() {
