@@ -44,9 +44,6 @@ This project is a simple file server implemented in Go that allows users to uplo
        fileserver.StartServer(":8080")
    }
    ```
-
-   Replace `github.com/yourusername/fileserver` with the actual path to your `fileserver` package.
-
 4. **Install the `FileServerGolang` Package**
 
    Install the `FileServerGolang` package using the `go get` command:
