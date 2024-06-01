@@ -7,31 +7,63 @@ This project is a simple file server implemented in Go that allows users to uplo
 - Go (1.16 or higher)
 - PowerShell (for testing and interacting with the server)
 
+You're absolutely right; my apologies for the oversight. Here's the corrected installation section:
+
 ## Installation
 
-1. **Clone the Repository**
+1. **Create a New Go Module**
+
+   If you're starting a new project, you'll want to initialize it as a Go module. Navigate to your project directory and run:
 
    ```bash
-   git clone https://github.com/Niall1985/FileServerGolang.git
+   go mod init github.com/yourusername/your-repository-name
    ```
 
-2. **Navigate to the directory for your repository**
+   Replace `github.com/yourusername/your-repository-name` with the desired module path.
 
-    ```bash
-    cd <your-repository-directory>
-    ```
+2. **Create the Project Structure**
 
-3. **Create the `uploads` Directory**
+   Inside your project directory, create the necessary directories and files:
 
    ```bash
    mkdir uploads
+   ```
+
+   This will create the `uploads` directory where uploaded files will be stored.
+
+3. **Create the `main.go` File**
+
+   Create a `main.go` file in your project directory and import the `fileserver` package to use it. Here's an example `main.go` file:
+
+   ```go
+   package main
+
+   import (
+       "github.com/yourusername/fileserver"
+   )
+
+   func main() {
+       fileserver.StartServer(":8080")
+   }
+   ```
+
+   Replace `github.com/yourusername/fileserver` with the actual path to your `fileserver` package.
+
+4. **Install the `FileServerGolang` Package**
+
+   Install the `FileServerGolang` package using the `go get` command:
+
+   ```bash
+   go get github.com/Niall1985/FileServerGolang
    ```
 
 ## Running the Server
 
 ### Using `go run`
 
-You can run the server directly with `go run`:
+You can run the server directly with `go run`. First, create a new `main.go` file in your project directory and import the `fileserver` package:
+
+- Run the server using:
 
 ```bash
 go run main.go
@@ -59,7 +91,7 @@ The server will start listening on port 8080.
 
 ### Uploading a File
 
-To upload a file from your local system to the server:
+To upload a file from your local system to the server, use the following PowerShell script:
 
 ```powershell
 $FilePath = "C:\Path\To\Your\File.ext"
