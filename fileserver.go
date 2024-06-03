@@ -1,4 +1,4 @@
-package fileserver
+package main
 
 import (
 	"fmt"
@@ -7,7 +7,40 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 )
+
+// BasicAuthMiddleware is the authentication middleware
+func BasicAuthMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Extract username and password from the Authorization header
+		user, pass, ok := r.BasicAuth()
+		// Check if the credentials are provided and valid
+		if !ok || !validateCredentials(user, pass) {
+			// Prompt for credentials if not valid
+			w.Header().Set("WWW-Authenticate", `Basic realm="Restricted"`)
+			http.Error(w, "Unauthorized.", http.StatusUnauthorized)
+			return
+		}
+		// Call the next handler if credentials are valid
+		next.ServeHTTP(w, r)
+	})
+}
+
+// validateCredentials validates the provided credentials
+func validateCredentials(user, pass string) bool {
+	// Replace with real validation logic
+	return user == "admin" && pass == "password"
+}
+
+// LoggingMiddleware logs the details of each request
+func LoggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		start := time.Now()
+		next.ServeHTTP(w, r)
+		fmt.Printf("%s %s %s %s\n", r.Method, r.RequestURI, r.RemoteAddr, time.Since(start))
+	})
+}
 
 // UploadHandler handles file uploads
 func UploadHandler(w http.ResponseWriter, r *http.Request) {
@@ -83,17 +116,22 @@ func DeleteHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "File deleted successfully: %s\n", fileName)
 }
 
+// StartServer initializes the server and sets up the routes
 func StartServer(addr string) {
 	// Ensure the uploads directory exists
 	os.MkdirAll("uploads", os.ModePerm)
 
-	http.HandleFunc("/upload", UploadHandler)
-	http.HandleFunc("/download/", DownloadHandler)
-	http.HandleFunc("/list", ListHandler)
-	http.HandleFunc("/delete/", DeleteHandler)
+	http.Handle("/upload", LoggingMiddleware(BasicAuthMiddleware(http.HandlerFunc(UploadHandler))))
+	http.Handle("/download/", LoggingMiddleware(BasicAuthMiddleware(http.HandlerFunc(DownloadHandler))))
+	http.Handle("/list", LoggingMiddleware(BasicAuthMiddleware(http.HandlerFunc(ListHandler))))
+	http.Handle("/delete/", LoggingMiddleware(BasicAuthMiddleware(http.HandlerFunc(DeleteHandler))))
 
-	fmt.Println("Starting server on :8080")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("Starting server on " + addr)
+	http.ListenAndServe(addr, nil)
+}
+
+func main() {
+	StartServer(":8080")
 }
 
 // package fileserver
