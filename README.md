@@ -49,7 +49,7 @@ This project is a simple file server implemented in Go that allows users to uplo
    Install the `FileServerGolang` package using the `go get` command:
 
    ```bash
-   go get github.com/Niall1985/FileServerGolang
+   go get -u github.com/Niall1985/FileServerGolang
    ```
 
 ## Running the Server
@@ -166,5 +166,6 @@ Contributions are welcome! Please submit a pull request or open an issue for any
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
 
