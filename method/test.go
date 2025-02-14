@@ -1,4 +1,4 @@
-package main
+package method
 
 import (
 	"bytes"
