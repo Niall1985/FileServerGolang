@@ -70,7 +70,7 @@ func sendToPythonService(imagePath string) ([]byte, error) {
 
 	writer.Close()
 
-	req, err := http.NewRequest("POST", "http://localhost:5000/analyze", body)
+	req, err := http.NewRequest("POST", "http://localhost:8080/analyze", body)
 	if err != nil {
 		return nil, fmt.Errorf("failed to create request: %v", err)
 	}
